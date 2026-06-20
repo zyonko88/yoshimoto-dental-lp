@@ -299,14 +299,29 @@
       <div class="tel-sub">受付時間 9:00〜18:00（木・日・祝休）</div>
     </div>
     <div class="contact-form">
-      <h4>オンラインで相談する</h4>
+      <h4>メールで相談する</h4>
       <div class="form-group">
         <label>お名前 <span style="color:#E24B4A;">*</span></label>
         <input type="text" id="f-name" placeholder="山田 花子">
       </div>
       <div class="form-group">
-        <label>電話番号</label>
-        <input type="tel" id="f-phone" placeholder="090-0000-0000">
+        <label>メールアドレス <span style="color:#E24B4A;">*</span></label>
+        <input type="email" id="f-email" placeholder="example@email.com">
+      </div>
+      <div class="form-group">
+        <label>年齢</label>
+        <input type="number" id="f-age" placeholder="例：52" min="1" max="120" style="width:120px;">
+      </div>
+      <div class="form-group">
+        <label>お住まい</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <select id="f-pref" style="border:0.5px solid var(--border-md);border-radius:var(--radius-md);padding:.6rem .85rem;font-size:14px;font-family:inherit;color:var(--text-primary);background:var(--bg-primary);outline:none;">
+            <option value="">都道府県</option>
+            <option value="香川県" selected>香川県</option>
+            <option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option>
+          </select>
+          <input type="text" id="f-city" placeholder="市区町村（例：高松市）" value="高松市" style="flex:1;min-width:120px;">
+        </div>
       </div>
       <div class="form-group">
         <label>ご相談内容 <span style="color:#E24B4A;">*</span></label>
@@ -440,21 +455,34 @@ async function showResult(){
 
 async function submitContact(){
   const name=document.getElementById('f-name').value.trim();
-  const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const age=document.getElementById('f-age').value.trim();
+  const pref=document.getElementById('f-pref').value;
+  const city=document.getElementById('f-city').value.trim();
   const msg=document.getElementById('f-msg').value.trim();
   const msgEl=document.getElementById('f-msg-result');
   msgEl.className='form-msg';
-  if(!name||!msg){msgEl.className='form-msg err';msgEl.textContent='お名前とご相談内容は必須です。';return;}
+  if(!name||!email||!msg){msgEl.className='form-msg err';msgEl.textContent='お名前・メールアドレス・ご相談内容は必須です。';return;}
   const btn=document.getElementById('f-submit');
   btn.disabled=true;btn.textContent='送信中...';
-  const{error}=await sb.from('contacts').insert({name,phone,message:msg});
+  const address=[pref,city].filter(Boolean).join('');
+  const{error}=await sb.from('contacts').insert({
+    name,
+    email,
+    age: age?parseInt(age):null,
+    address: address||null,
+    message: msg
+  });
   btn.disabled=false;btn.textContent='送信する';
   if(error){msgEl.className='form-msg err';msgEl.textContent='送信に失敗しました。お電話でご連絡ください。';}
   else{
     msgEl.className='form-msg ok';
-    msgEl.textContent='ご相談内容を受け付けました。2営業日以内にご連絡いたします。';
+    msgEl.textContent='ご相談内容を受け付けました。2営業日以内にメールにてご連絡いたします。';
     document.getElementById('f-name').value='';
-    document.getElementById('f-phone').value='';
+    document.getElementById('f-email').value='';
+    document.getElementById('f-age').value='';
+    document.getElementById('f-pref').value='香川県';
+    document.getElementById('f-city').value='高松市';
     document.getElementById('f-msg').value='';
   }
 }
