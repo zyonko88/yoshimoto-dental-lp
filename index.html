@@ -65,9 +65,11 @@
     .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--green-pale); color: var(--green-dark); margin: 4px 3px 0 0; border: 0.5px solid #9FE1CB; }
 
     /* TREATMENT */
-    .treat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-    .treat-card { background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.1rem; text-align: center; }
-    .treat-card i { font-size: 26px; color: var(--green-main); margin-bottom: 8px; display: block; }
+    .treat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+    .treat-card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; text-align: center; }
+    .treat-card .illust { background: var(--green-pale); display: flex; align-items: center; justify-content: center; height: 130px; }
+    .treat-card .illust svg { width: 110px; height: 110px; }
+    .treat-card .treat-body { padding: .9rem 1rem; }
     .treat-card h4 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
     .treat-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
 
@@ -206,9 +208,76 @@
     <div class="section-label">抜歯後の選択肢</div>
     <div class="section-title">どうしても抜歯になった場合も、最善の治療をご提案します</div>
     <div class="treat-grid">
-      <div class="treat-card"><i class="ti ti-device-heart-monitor"></i><h4>インプラント</h4><p>骨に人工歯根を埋め込む。見た目・機能ともに自然歯に最も近い</p></div>
-      <div class="treat-card"><i class="ti ti-link"></i><h4>ブリッジ</h4><p>隣の歯を支えにして橋渡し。保険適用できる場合も</p></div>
-      <div class="treat-card"><i class="ti ti-tooth"></i><h4>部分入れ歯</h4><p>取り外し可能な義歯。費用を抑えたい方に向いている</p></div>
+      <div class="treat-card">
+        <div class="illust">
+          <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- 骨 -->
+            <rect x="20" y="72" width="70" height="22" rx="6" fill="#9FE1CB"/>
+            <rect x="28" y="60" width="54" height="16" rx="4" fill="#5DCAA5"/>
+            <!-- インプラント体（ネジ） -->
+            <rect x="48" y="28" width="14" height="38" rx="3" fill="#085041"/>
+            <rect x="44" y="33" width="22" height="3" rx="1.5" fill="#0F6E56"/>
+            <rect x="44" y="39" width="22" height="3" rx="1.5" fill="#0F6E56"/>
+            <rect x="44" y="45" width="22" height="3" rx="1.5" fill="#0F6E56"/>
+            <rect x="44" y="51" width="22" height="3" rx="1.5" fill="#0F6E56"/>
+            <!-- クラウン -->
+            <ellipse cx="55" cy="22" rx="14" ry="10" fill="#1D9E75"/>
+            <ellipse cx="55" cy="19" rx="10" ry="6" fill="#5DCAA5"/>
+          </svg>
+        </div>
+        <div class="treat-body">
+          <h4>インプラント</h4>
+          <p>骨に人工歯根を埋め込む。見た目・機能ともに自然歯に最も近い</p>
+        </div>
+      </div>
+      <div class="treat-card">
+        <div class="illust">
+          <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- 左の歯 -->
+            <rect x="10" y="55" width="26" height="32" rx="5" fill="#9FE1CB"/>
+            <rect x="13" y="44" width="20" height="16" rx="4" fill="#1D9E75"/>
+            <rect x="15" y="46" width="14" height="8" rx="2" fill="#5DCAA5"/>
+            <!-- 右の歯 -->
+            <rect x="74" y="55" width="26" height="32" rx="5" fill="#9FE1CB"/>
+            <rect x="77" y="44" width="20" height="16" rx="4" fill="#1D9E75"/>
+            <rect x="79" y="46" width="14" height="8" rx="2" fill="#5DCAA5"/>
+            <!-- 中央のブリッジ部 -->
+            <rect x="32" y="44" width="46" height="16" rx="4" fill="#1D9E75"/>
+            <rect x="35" y="46" width="40" height="8" rx="2" fill="#5DCAA5"/>
+            <!-- 連結バー -->
+            <rect x="30" y="50" width="50" height="4" rx="2" fill="#085041"/>
+          </svg>
+        </div>
+        <div class="treat-body">
+          <h4>ブリッジ</h4>
+          <p>隣の歯を支えにして橋渡し。保険適用できる場合も</p>
+        </div>
+      </div>
+      <div class="treat-card">
+        <div class="illust">
+          <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- 義歯床（ピンク） -->
+            <path d="M18 60 Q18 42 55 40 Q92 42 92 60 L88 85 Q88 92 80 92 L30 92 Q22 92 22 85 Z" fill="#F5C4B3"/>
+            <path d="M22 60 Q22 48 55 46 Q88 48 88 60 L85 82 Q85 88 78 88 L32 88 Q25 88 25 82 Z" fill="#F0997B"/>
+            <!-- 人工歯 -->
+            <rect x="28" y="50" width="14" height="18" rx="3" fill="#E1F5EE"/>
+            <rect x="30" y="51" width="10" height="8" rx="2" fill="#fff"/>
+            <rect x="45" y="47" width="14" height="20" rx="3" fill="#E1F5EE"/>
+            <rect x="47" y="48" width="10" height="9" rx="2" fill="#fff"/>
+            <rect x="62" y="47" width="14" height="20" rx="3" fill="#E1F5EE"/>
+            <rect x="64" y="48" width="10" height="9" rx="2" fill="#fff"/>
+            <rect x="78" y="50" width="10" height="18" rx="3" fill="#E1F5EE"/>
+            <rect x="80" y="51" width="6" height="8" rx="2" fill="#fff"/>
+            <!-- クラスプ（金属バネ） -->
+            <path d="M22 62 Q10 55 12 45 Q14 36 22 38" stroke="#085041" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M88 62 Q100 55 98 45 Q96 36 88 38" stroke="#085041" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="treat-body">
+          <h4>部分入れ歯</h4>
+          <p>取り外し可能な義歯。費用を抑えたい方に向いている</p>
+        </div>
+      </div>
     </div>
   </div>
 
